@@ -11,6 +11,7 @@ class ImagePath{
   static const String placeholder = "$basePath/placeholder.jpg";
 
   static const String forgetPassword = "$basePath/forget_password.png";
+  static const String noShows = "$basePath/no_shows.png";
 
 
 

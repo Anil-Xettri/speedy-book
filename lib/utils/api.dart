@@ -12,5 +12,7 @@ class Api{
   static const changePasswordUrl = "$baseUrl/auth/customer/change-password";
 
   static const cinemaHallUrl = "$baseUrl/cinema-halls";
+  static const showingMoviesUrl = "$baseUrl/movie-showing";
+  static const getMovieDetails= "$baseUrl/movie";
 
 }

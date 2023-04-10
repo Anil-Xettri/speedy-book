@@ -31,7 +31,7 @@ class LoginController extends GetxController {
           message: "PLease wiat ..",
           backgroundColor: AppColors.backGroundColor);
       await LoginRepo.login(
-        email: emailController.text,
+        email: emailController.text.toLowerCase(),
         password: passwordController.text,
         onSuccess: (user, token) async {
           loading.hide();
