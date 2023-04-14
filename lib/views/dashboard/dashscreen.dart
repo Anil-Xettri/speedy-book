@@ -5,6 +5,7 @@ import 'package:speedy_book/controller/core_controller.dart';
 import 'package:speedy_book/controller/dashboard/dash_controller.dart';
 import 'package:speedy_book/utils/colors.dart';
 import 'package:speedy_book/utils/image_path.dart';
+import 'package:speedy_book/views/booking/bookings_seceen.dart';
 import 'package:speedy_book/views/dashboard/change_password_screen.dart';
 import 'package:speedy_book/views/dashboard/my_details_screen.dart';
 import 'package:speedy_book/widgets/row/cinema_halls_row.dart';
@@ -88,6 +89,7 @@ class DashScreen extends StatelessWidget {
               DrawerTile(
                 onTap: () {
                   Get.back();
+                  Get.toNamed(BookingsScreen.routeName);
                 },
                 leadingIcon: Icons.local_movies_outlined,
                 title: "My Tickets",

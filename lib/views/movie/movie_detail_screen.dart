@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:speedy_book/controller/movie_controller.dart';
+import 'package:speedy_book/controller/movies/movie_controller.dart';
 import 'package:speedy_book/utils/colors.dart';
 import 'package:speedy_book/utils/date_time_helper.dart';
+import 'package:speedy_book/widgets/row/details_row.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final c = Get.find<MovieController>();
@@ -36,7 +37,7 @@ class MovieDetailScreen extends StatelessWidget {
             ),
             DetailRow(
               title: "Duration",
-              value: c.movie.value!.duration!,
+              value: DateTimeHelper.toDuration(c.movie.value!.duration!),
             ),
             DetailRow(
               title: "Release Date",
@@ -50,39 +51,4 @@ class MovieDetailScreen extends StatelessWidget {
   }
 }
 
-class DetailRow extends StatelessWidget {
-  final String title;
-  final String value;
-  const DetailRow({
-    super.key,
-    required this.title,
-    required this.value,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var textTheme = theme.textTheme;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: textTheme.bodyLarge,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: textTheme.bodyLarge!.copyWith(
-                color: AppColors.hintTextColor,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}

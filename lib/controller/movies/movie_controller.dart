@@ -19,7 +19,7 @@ class MovieController extends GetxController {
 
   RxList<String> showDates = RxList();
   RxString selectedDate = RxString("");
-  RxMap<String, Show> shows = RxMap();
+  RxMap<String, List<Show>> shows = RxMap();
 
   PageController pageController = PageController(keepPage: false);
 
@@ -48,8 +48,16 @@ class MovieController extends GetxController {
 
     await MoviesRepo.getMovieDetails(
       movieId: movie.value!.id!,
-      onSuccess: (movie) {
+      onSuccess: (movie, shows) {
         this.movie.value = movie;
+
+        for (var key in shows.keys) {
+          showDates.add(key);
+        }
+        selectedDate.value = showDates[0];
+
+        this.shows.addAll(shows);
+
         log("Trailer Url ====> ${this.movie.value!.trailerUrl}");
         videoPlayerController = VideoPlayerController.network(
             this.movie.value!.trailerUrl!,
@@ -62,17 +70,10 @@ class MovieController extends GetxController {
         flickManager =
             FlickManager(videoPlayerController: videoPlayerController);
         videoInitialized.value = true;
-        getShows();
         isLoading.value = false;
       },
       onError: (message) {},
     );
-  }
-
-  getShows() {
-    showDates.add(DateTime.now().toString());
-    showDates.add(DateTime.now().add(const Duration(days: 1)).toString());
-    selectedDate.value = showDates[0];
   }
 
   void selectShowDate(String showDate) {
@@ -84,7 +85,6 @@ class MovieController extends GetxController {
     videoPlayerController.pause();
     videoPlayerController.dispose();
     flickManager.dispose();
-    log("Disposed Controller");
     super.onClose();
   }
 }

@@ -1,4 +1,7 @@
- import 'package:intl/intl.dart';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeHelper {
   static String dateOnly(DateTime dateTime) {
@@ -20,7 +23,7 @@ class DateTimeHelper {
   }
 
   static String dateFormat(DateTime dateTime) {
-    DateFormat formatter = DateFormat("yyyy-mm-dd");
+    DateFormat formatter = DateFormat("yyyy-MM-dd");
     String formatted = formatter.format(dateTime);
     return formatted;
   }
@@ -56,4 +59,30 @@ class DateTimeHelper {
 
     return true;
   }
+
+  static TimeOfDay toTimeofDay(String timeString) {
+    var timeOfDay = TimeOfDay(
+        hour: int.parse(timeString.split(":")[0]),
+        minute: int.parse(timeString.split(":")[1]));
+    return timeOfDay;
+  }
+
+  static String toDuration(String timeString){
+    var timeOfDay = toTimeofDay(timeString);
+
+    return "${timeOfDay.hour} hrs ${timeOfDay.minute} min";
+  }
+}
+
+
+extension TimeOfDayExtension on TimeOfDay {
+
+  int compareTo(TimeOfDay other) {
+    if (hour < other.hour) return -1;
+    if (hour > other.hour) return 1;
+    if (minute < other.minute) return -1;
+    if (minute > other.minute) return 1;
+    return 0;
+  }
+
 }

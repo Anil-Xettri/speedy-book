@@ -1,7 +1,7 @@
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:speedy_book/controller/movie_controller.dart';
+import 'package:speedy_book/controller/movies/movie_controller.dart';
 import 'package:speedy_book/views/movie/movie_detail_screen.dart';
 import 'package:speedy_book/views/movie/show_detail_screen.dart';
 import 'package:speedy_book/widgets/chip_button.dart';

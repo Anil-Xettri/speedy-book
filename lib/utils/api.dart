@@ -1,6 +1,6 @@
 class Api{
 
-  static const baseUrl = "http://192.168.1.71:8000/api";
+  static const baseUrl = "http://192.168.1.70:8000/api";
 
   static const loginUrl = "$baseUrl/auth/customer-login";
   static const signupUrl = "$baseUrl/auth/customer-signUp";
@@ -14,5 +14,11 @@ class Api{
   static const cinemaHallUrl = "$baseUrl/cinema-halls";
   static const showingMoviesUrl = "$baseUrl/movie-showing";
   static const getMovieDetails= "$baseUrl/movie";
+  static const getShowDetails= "$baseUrl/show-details";
+  static const booking= "$baseUrl/booking";
+  static const getBooking= "$baseUrl/booking-list";
+  static const getBookingDetails= "$baseUrl/booking-details";
+  static const cancelBooking= "$baseUrl/cancel-booking";
+  static const verifyPayment= "$baseUrl/verify-payment";
 
 }

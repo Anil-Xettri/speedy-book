@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.18.0
   video_player: ^2.6.1
   flick_video_player: ^0.5.0
+  zoom_widget: ^2.0.1
+  khalti_flutter: ^2.1.0
 
 dev_dependencies:
   flutter_test:

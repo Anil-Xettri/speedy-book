@@ -142,7 +142,7 @@ class Show {
   int? showTimeId;
   String? showDate;
   String? showTime;
-  String? ticketPrice;
+  int? ticketPrice;
 
   Show({this.showTimeId, this.showDate, this.showTime, this.ticketPrice});
 
@@ -150,7 +150,7 @@ class Show {
     showTimeId = json['show_time_id'];
     showDate = json['show_date'];
     showTime = json['show_time'];
-    ticketPrice = json['ticket_price'];
+    ticketPrice = int.parse(json['ticket_price'].toString());
   }
 
   Map<String, dynamic> toJson() {

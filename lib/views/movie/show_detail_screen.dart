@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:speedy_book/utils/custom_snackbar.dart';
 import 'package:speedy_book/utils/date_time_helper.dart';
+import 'package:speedy_book/views/movie/theater_screen.dart';
 import 'package:speedy_book/widgets/selection_buttion.dart';
 
-import '../../controller/movie_controller.dart';
+import '../../controller/movies/movie_controller.dart';
 
 class ShowDetailScreen extends StatelessWidget {
   final c = Get.find<MovieController>();
@@ -54,22 +58,42 @@ class ShowDetailScreen extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 8,
-              itemBuilder: (context, index) {
-                return SelectionButton(
-                  title: "12:00 PM",
-                  isActive: false,
-                  onTap: () {},
-                );
-              },
-            ),
-          )
+          Obx(() => SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: c.shows[c.selectedDate.value]!.length,
+                  itemBuilder: (context, index) {
+                    var show = c.shows[c.selectedDate.value]![index];
+                    return SelectionButton(
+                      title: DateTimeHelper.toTimeofDay(show.showTime!)
+                          .format(context),
+                      isActive: false,
+                      onTap: () {
+                        if (isAvailable(show.showTime!)) {
+                          Get.toNamed(TheaterScreen.routeName,
+                              arguments: [c.movie.value, show]);
+                          c.videoPlayerController.pause();
+                        }
+                      },
+                    );
+                  },
+                ),
+              ))
         ],
       ),
     );
+  }
+
+  bool isAvailable(String timeString) {
+    log("${DateTimeHelper.toTimeofDay(timeString).compareTo(TimeOfDay.now())} ============> Time Comparision");
+    if (DateTimeHelper.isSameDate(
+        DateTime.now(), DateTime.parse(c.selectedDate.value))) {
+      if (DateTimeHelper.toTimeofDay(timeString).compareTo(TimeOfDay.now()) ==
+          -1) {
+        return false;
+      }
+    }
+    return true;
   }
 }

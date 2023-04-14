@@ -12,6 +12,9 @@ class ImagePath{
 
   static const String forgetPassword = "$basePath/forget_password.png";
   static const String noShows = "$basePath/no_shows.png";
+  static const String seats = "$baseIconPath/seats.png";
+  
+  static const String khaltiLogo = "$basePath/khalti_logo.png";
 
 
 

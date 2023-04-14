@@ -8,15 +8,12 @@ import 'package:speedy_book/utils/date_time_helper.dart';
 import 'package:speedy_book/utils/http_request.dart';
 import 'package:speedy_book/utils/storage_helper.dart';
 
-
-class MoviesRepo{
-
-  static Future<void> getCurrentMovies({
-    required int vendorId,
-    required Function(List<Movie> nowShowing, List<Movie> commingSoon) onSuccess,
-    required Function(String message) onError
-  }) async{
-
+class MoviesRepo {
+  static Future<void> getCurrentMovies(
+      {required int vendorId,
+      required Function(List<Movie> nowShowing, List<Movie> commingSoon)
+          onSuccess,
+      required Function(String message) onError}) async {
     try {
       var token = StorageHelper.getToken();
 
@@ -26,15 +23,12 @@ class MoviesRepo{
         "Authorization": token.toString()
       };
 
-      var body = {
-        "vendor_id": vendorId
-      };
+      var body = {"vendor_id": vendorId};
 
       http.Response response = await HttpRequest.post(
-        Uri.parse(Api.showingMoviesUrl),
-        headers: headers,
-        body: json.encode(body)
-      );
+          Uri.parse(Api.showingMoviesUrl),
+          headers: headers,
+          body: json.encode(body));
 
       log("${Api.showingMoviesUrl} ===========>");
       log(response.body);
@@ -45,16 +39,15 @@ class MoviesRepo{
         List<Movie> nowShowing = <Movie>[];
         List<Movie> commingSoon = <Movie>[];
 
-        if(data['data']['nowShowing'] != null){
+        if (data['data']['nowShowing'] != null) {
           nowShowing.addAll(moviesFromJson(data['data']['nowShowing']));
         }
 
-        if(data['data']['comingSoon'] != null){
+        if (data['data']['comingSoon'] != null) {
           commingSoon.addAll(moviesFromJson(data['data']['comingSoon']));
         }
 
         onSuccess(nowShowing, commingSoon);
-
       } else {
         onError(data['message']);
       }
@@ -63,17 +56,12 @@ class MoviesRepo{
       log(s.toString());
       onError("Sorry! something went wrong");
     }
-
   }
 
-  static Future<void> getMovieDetails({
-    required int movieId,
-    required Function(Movie movie, 
-    // Map<String, List<Show>> shows
-    ) onSuccess,
-    required Function(String message) onError
-  }) async{
-
+  static Future<void> getMovieDetails(
+      {required int movieId,
+      required Function(Movie movie, Map<String, List<Show>> shows) onSuccess,
+      required Function(String message) onError}) async {
     try {
       var token = StorageHelper.getToken();
 
@@ -83,7 +71,7 @@ class MoviesRepo{
         "Authorization": token.toString()
       };
 
-      var url=  "${Api.getMovieDetails}/$movieId";
+      var url = "${Api.getMovieDetails}/$movieId";
 
       http.Response response = await HttpRequest.get(
         Uri.parse(url),
@@ -98,11 +86,17 @@ class MoviesRepo{
       if (data['success']) {
         var movie = Movie.fromJson(data['data']['movie']);
 
-        // var todayShows = showsFromJson(data['data'][DateTimeHelper.dateFormat(DateTime.now())]);
-        // var tomorrowShows = showsFromJson(data['data'][DateTimeHelper.dateFormat(DateTime.now().add(Dura))]);
-
-        onSuccess(movie);
-
+        var todayShows = showsFromJson(
+            data['data'][DateTimeHelper.dateFormat(DateTime.now())]);
+        var tomorrowShows = showsFromJson(data['data'][
+            DateTimeHelper.dateFormat(
+                DateTime.now().add(const Duration(days: 1)))]);
+        var shows = {
+          DateTimeHelper.dateFormat(DateTime.now()): todayShows,
+          DateTimeHelper.dateFormat(
+              DateTime.now().add(const Duration(days: 1))): tomorrowShows
+        };
+        onSuccess(movie, shows);
       } else {
         onError(data['message']);
       }
@@ -111,7 +105,5 @@ class MoviesRepo{
       log(s.toString());
       onError("Sorry! something went wrong");
     }
-
   }
-
 }
