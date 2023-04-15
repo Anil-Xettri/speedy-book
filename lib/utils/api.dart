@@ -1,6 +1,6 @@
 class Api{
 
-  static const baseUrl = "http://192.168.1.70:8000/api";
+  static const baseUrl = "http://192.168.1.69:8000/api";
 
   static const loginUrl = "$baseUrl/auth/customer-login";
   static const signupUrl = "$baseUrl/auth/customer-signUp";

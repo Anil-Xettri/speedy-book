@@ -18,6 +18,8 @@ class PaymentController extends GetxController {
   void onInit() {
     var data = Get.arguments;
     booking.value = data[0];
+
+    log("Payment Screen ================> ${booking.value!.toJson()}");
     super.onInit();
   }
 
@@ -25,7 +27,7 @@ class PaymentController extends GetxController {
     try {
       final config = PaymentConfig(
         // amount: int.parse(booking.value!.price!),
-        amount: 1000,
+        amount: booking.value!.total! * 100,
         productIdentity: booking.value!.id.toString(),
         productName:
             "${booking.value!.vendor!.name!}-${booking.value!.movie!.title!}",
@@ -51,20 +53,25 @@ class PaymentController extends GetxController {
   }
 
   void verifyKhaltiTransaction(PaymentSuccessModel result) async {
-    loading.show(message: "Please wait ..", backgroundColor: AppColors.onBackGroundColor);
+    loading.show(
+        message: "Please wait ..",
+        backgroundColor: AppColors.onBackGroundColor);
 
     await PaymentRepo.verifyKhaltiPayment(
       transactionId: booking.value!.id!,
       pidx: result.idx,
-      amount: "10",
+      amount: result.amount,
       token: result.token,
       onSuccess: (bookings, seat) {
         loading.hide();
-        Get.offNamed(BookingDetailScreen.routeName, arguments: [bookings, seat]);
+        Get.offNamed(BookingDetailScreen.routeName,
+            arguments: [bookings, seat]);
         CustomSnackBar.success();
       },
       onError: (message) {
         loading.hide();
+        CustomSnackBar.error(
+            title: "Payment Verification", message: message);
       },
     );
   }

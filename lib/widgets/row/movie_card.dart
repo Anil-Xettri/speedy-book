@@ -10,9 +10,11 @@ import '../../utils/colors.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
+  final bool showRightMargin;
   const MovieCard({
     super.key,
     required this.movie,
+    this.showRightMargin = true,
   });
 
   @override
@@ -26,7 +28,7 @@ class MovieCard extends StatelessWidget {
       child: Container(
         width: (Get.width / 2) - 20,
         height: (Get.width / 2) + 40,
-        margin: const EdgeInsets.only(right: 16),
+        margin: showRightMargin ? const EdgeInsets.only(right: 16) : null,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: const Color(0xFF252834)),
@@ -36,12 +38,12 @@ class MovieCard extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: CachedNetworkImage(
-                imageUrl:
-                    movie.image??"",
+                imageUrl: movie.image ?? "",
                 width: (Get.width / 2) - 20,
                 height: (Get.width / 2) + 10,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const CircularProgressIndicator(),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => Image.asset(
                   ImagePath.placeholder,
                   width: (Get.width / 2) - 20,

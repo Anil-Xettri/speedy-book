@@ -37,6 +37,7 @@ class ShowDetailScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Obx(
                   () => SelectionButton(
+                    isDisabled: false,
                     title: DateTimeHelper.dateMonth(
                         DateTime.parse(c.showDates[index])),
                     isActive: c.selectedDate.value == c.showDates[index],
@@ -69,6 +70,7 @@ class ShowDetailScreen extends StatelessWidget {
                       title: DateTimeHelper.toTimeofDay(show.showTime!)
                           .format(context),
                       isActive: false,
+                      isDisabled: !isAvailable(show.showTime!),
                       onTap: () {
                         if (isAvailable(show.showTime!)) {
                           Get.toNamed(TheaterScreen.routeName,

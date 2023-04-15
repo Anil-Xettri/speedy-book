@@ -13,7 +13,7 @@ class PaymentRepo {
   static Future<void> verifyKhaltiPayment({
     required int transactionId,
     required String pidx,
-    required String amount,
+    required int amount,
     required String token,
     required Function(Booking booking, List<Seat> seats) onSuccess,
     required Function(String message) onError,
@@ -29,7 +29,7 @@ class PaymentRepo {
       var body = {
         "booking_id": transactionId,
         "pidx": pidx,
-        "amount": "10",
+        "amount": amount,
         "token": token
       };
 

@@ -34,38 +34,6 @@ class CinemaHallScreen extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (c.commingSoon.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          "Comming Soon",
-                          style: textTheme.titleLarge,
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        SizedBox(
-                          height: (Get.width / 2) + 60,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: c.commingSoon.length,
-                            itemBuilder: (context, index) {
-                              var movie = c.commingSoon[index];
-                              return MovieCard(
-                                movie: movie,
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    ),
                   if (c.nowShowing.isNotEmpty)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,8 +63,41 @@ class CinemaHallScreen extends StatelessWidget {
                             var movie = c.nowShowing[index];
                             return MovieCard(
                               movie: movie,
+                              showRightMargin: false,
                             );
                           },
+                        ),
+                      ],
+                    ),
+                  if (c.commingSoon.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Comming Soon",
+                          style: textTheme.titleLarge,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SizedBox(
+                          height: (Get.width / 2) + 60,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: c.commingSoon.length,
+                            itemBuilder: (context, index) {
+                              var movie = c.commingSoon[index];
+                              return MovieCard(
+                                movie: movie,
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
                         ),
                       ],
                     ),

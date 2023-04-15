@@ -71,7 +71,8 @@ class BookingDetailScreen extends StatelessWidget {
                               width: 8,
                             ),
                             Text(
-                              DateTimeHelper.toDuration(c.booking.value!.movie!.duration!),
+                              DateTimeHelper.toDuration(
+                                  c.booking.value!.movie!.duration!),
                               style: CustomTextStyles.f12W600(
                                   color: AppColors.primaryColor),
                             )
@@ -82,7 +83,8 @@ class BookingDetailScreen extends StatelessWidget {
                       DataRowValue(
                         title1: "Date",
                         title2: "Theater",
-                        data1: DateTimeHelper.prettyDateWithDayTime(DateTime.parse(c.booking.value!.showTime!)),
+                        data1: DateTimeHelper.prettyDateWithDayTime(
+                            DateTime.parse(c.booking.value!.showTime!)),
                         data2: "${c.booking.value?.theater?.name}",
                       ),
                       const SizedBox(
@@ -169,10 +171,9 @@ class BookingDetailScreen extends StatelessWidget {
                       title: "Book Ticket",
                       onTap: () {
                         Get.offNamedUntil(
-                            DashScreen.routeName,
+                            PaymentScreen.routeName,
                             (route) =>
-                                route.settings.name == DashScreen.routeName);
-                        Get.toNamed(PaymentScreen.routeName,
+                                route.settings.name == DashScreen.routeName,
                             arguments: [c.booking.value]);
                       },
                       backGroundColor: Colors.blue,

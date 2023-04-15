@@ -7,6 +7,7 @@ import 'package:speedy_book/controller/movies/theater_controller.dart';
 import 'package:speedy_book/utils/colors.dart';
 import 'package:speedy_book/utils/price_helper.dart';
 import 'package:speedy_book/widgets/custom/custom_elevated_button.dart';
+import 'package:speedy_book/widgets/dotted_line.dart';
 import 'package:speedy_book/widgets/row/seat_widget.dart';
 import 'package:zoom_widget/zoom_widget.dart';
 
@@ -68,8 +69,8 @@ class TheaterScreen extends StatelessWidget {
                     child: SizedBox(
                       height: Get.height / 2,
                       width: (c.theater.value!.columns! * 45) >= Get.width
-                      ? Get.width
-                      : (c.theater.value!.columns! * 45),
+                          ? Get.width
+                          : (c.theater.value!.columns! * 45),
                       child: GridView.builder(
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(
@@ -91,6 +92,24 @@ class TheaterScreen extends StatelessWidget {
                         },
                       ),
                     ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                  child: Stack(
+                    children: [
+                      Center(
+                          child: SizedBox(width: Get.width, child: Divider())),
+                      Center(
+                          child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        color: AppColors.backGroundColor,
+                        child: Text(
+                          "Screen",
+                          style: textTheme.bodyLarge,
+                        ),
+                      )),
+                    ],
                   ),
                 ),
                 const Spacer(),

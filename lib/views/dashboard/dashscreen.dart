@@ -8,6 +8,7 @@ import 'package:speedy_book/utils/image_path.dart';
 import 'package:speedy_book/views/booking/bookings_seceen.dart';
 import 'package:speedy_book/views/dashboard/change_password_screen.dart';
 import 'package:speedy_book/views/dashboard/my_details_screen.dart';
+import 'package:speedy_book/widgets/error_screen.dart';
 import 'package:speedy_book/widgets/row/cinema_halls_row.dart';
 import 'package:speedy_book/widgets/row/drawer_tile.dart';
 
@@ -123,6 +124,11 @@ class DashScreen extends StatelessWidget {
           Obx(() {
             if (c.isLoading.value) {
               return const LinearProgressIndicator();
+            } else if (!c.isLoading.value && c.halls.isEmpty) {
+              return SizedBox(
+                height: Get.height / 1.2,
+                child: const ErrorScreen(),
+              );
             } else {
               return Expanded(
                 child: ListView.builder(

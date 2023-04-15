@@ -50,6 +50,7 @@ class BookingRepo extends GetxController {
           headers: headers, body: json.encode(body));
 
       log("$url ===========>");
+      log(json.encode(body));
       log(response.body);
 
       dynamic data = json.decode(response.body);

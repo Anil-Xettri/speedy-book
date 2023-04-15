@@ -1,12 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:speedy_book/controller/booking/booking_controller.dart';
-import 'package:speedy_book/model/booking.dart';
-import 'package:speedy_book/utils/colors.dart';
-import 'package:speedy_book/utils/date_time_helper.dart';
-import 'package:speedy_book/utils/image_path.dart';
-import 'package:speedy_book/views/booking/booking_details.dart';
+import 'package:speedy_book/widgets/error_screen.dart';
 import 'package:speedy_book/widgets/row/booking_row.dart';
 
 class BookingsScreen extends StatelessWidget {
@@ -27,6 +22,11 @@ class BookingsScreen extends StatelessWidget {
             () {
               if (c.isLoading.value) {
                 return const LinearProgressIndicator();
+              } else if (!c.isLoading.value && c.bookings.isEmpty) {
+                return SizedBox(
+                  height: Get.height / 1.2,
+                  child: const ErrorScreen(),
+                );
               } else {
                 return Expanded(
                   child: ListView.builder(
